@@ -77,20 +77,22 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+import os
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'planta_transfor',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.getenv("DB_NAME", "planta_transfor"),
+        "USER": os.getenv("DB_USER", "planta_user"),
+        "PASSWORD": os.getenv("DB_PASSWORD", "planta_pass"),
+        "HOST": os.getenv("DB_HOST", "db"),
+        "PORT": os.getenv("DB_PORT", "3306"),
+        "OPTIONS": {
+            "charset": "utf8mb4",
         },
     }
 }
+
 
 
 

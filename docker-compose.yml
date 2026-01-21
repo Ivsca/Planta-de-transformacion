@@ -1,0 +1,44 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: planta_transfor
+      MYSQL_USER: planta_user
+      MYSQL_PASSWORD: planta_pass
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_NAME: planta_transfor
+      DB_USER: planta_user
+      DB_PASSWORD: planta_pass
+      DB_PORT: "3306"
+    command: sh /app/entrypoint.sh
+
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm start
+
+volumes:
+  mysql_data:

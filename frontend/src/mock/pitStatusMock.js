@@ -1,44 +1,7 @@
 import PulseOrb from "./PulseOrb";
 import PitRightPanel from "./PitRightPanel";
-import { pitStatusMock } from "../mock/pitStatusMock";
-
-function Chip({ text, tone }) {
-  const toneStyles =
-    tone === "green"
-      ? {
-          background: "rgba(0,255,140,0.10)",
-          border: "1px solid rgba(0,255,140,0.30)",
-          color: "rgba(0,255,140,0.85)",
-        }
-      : tone === "yellow"
-      ? {
-          background: "rgba(255, 210, 60, 0.10)",
-          border: "1px solid rgba(255, 210, 60, 0.30)",
-          color: "rgba(255, 210, 60, 0.9)",
-        }
-      : {
-          background: "rgba(0,255,255,0.10)",
-          border: "1px solid rgba(0,255,255,0.30)",
-          color: "rgba(0,255,255,0.85)",
-        };
-
-  return (
-    <span
-      style={{
-        padding: "6px 10px",
-        borderRadius: 999,
-        fontSize: 12,
-        ...toneStyles,
-      }}
-    >
-      {text}
-    </span>
-  );
-}
 
 export default function DashboardPitSection() {
-  const data = pitStatusMock;
-
   return (
     <section style={{ marginTop: 56 }}>
       <div style={{ textAlign: "center", marginBottom: 22 }}>
@@ -53,19 +16,20 @@ export default function DashboardPitSection() {
             background: "rgba(0,255,255,0.06)",
           }}
         >
-          {data.header.badge}
+          Centro de Mando Biológico
         </span>
 
         <h2 style={{ color: "rgba(255,255,255,0.92)", margin: "14px 0 8px" }}>
-          {data.header.titleLeft}{" "}
-          <span style={{ color: "rgba(0,255,255,0.9)" }}>{data.header.titleAccent}</span>
+          Dashboard <span style={{ color: "rgba(0,255,255,0.9)" }}>PIT</span>
         </h2>
 
         <p style={{ color: "rgba(120,255,200,0.75)", margin: 0, fontSize: 13 }}>
-          {data.header.subtitle}
+          "Mi Ecosistema de Flujo" — La interfaz de conexión entre tu cuerpo y el
+          cuerpo planetario
         </p>
       </div>
 
+     
       <div
         style={{
           maxWidth: 980,
@@ -76,6 +40,7 @@ export default function DashboardPitSection() {
           alignItems: "start",
         }}
       >
+        
         <div
           style={{
             padding: 28,
@@ -92,10 +57,10 @@ export default function DashboardPitSection() {
               marginTop: 0,
             }}
           >
-            {data.orbCard.title}
+            Pulso de la PIT
           </h3>
 
-          <PulseOrb percent={data.orbCard.percent} label={data.orbCard.label} />
+          <PulseOrb percent={78} label="Frecuencia Vibratoria" />
 
           <div
             style={{
@@ -105,7 +70,7 @@ export default function DashboardPitSection() {
               fontSize: 12,
             }}
           >
-            {data.orbCard.footnote}
+            Calculado mediante coherencia cardiaca (HRV) y movimiento
           </div>
 
           <div
@@ -114,16 +79,37 @@ export default function DashboardPitSection() {
               gap: 10,
               justifyContent: "center",
               marginTop: 12,
-              flexWrap: "wrap",
             }}
           >
-            {data.orbCard.chips.map((c, idx) => (
-              <Chip key={idx} text={c.text} tone={c.tone} />
-            ))}
+            <span
+              style={{
+                padding: "6px 10px",
+                borderRadius: 999,
+                background: "rgba(0,255,140,0.10)",
+                border: "1px solid rgba(0,255,140,0.30)",
+                color: "rgba(0,255,140,0.85)",
+                fontSize: 12,
+              }}
+            >
+              Flujo Activo
+            </span>
+            <span
+              style={{
+                padding: "6px 10px",
+                borderRadius: 999,
+                background: "rgba(255, 210, 60, 0.10)",
+                border: "1px solid rgba(255, 210, 60, 0.30)",
+                color: "rgba(255, 210, 60, 0.9)",
+                fontSize: 12,
+              }}
+            >
+              Resonancia Alta
+            </span>
           </div>
         </div>
 
-        <PitRightPanel data={data.rightPanel} />
+        
+        <PitRightPanel />
       </div>
     </section>
   );
